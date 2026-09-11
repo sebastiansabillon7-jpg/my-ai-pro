@@ -42,7 +42,42 @@ Do not claim to have browsed the internet or performed actions you did not actua
     res.status(500).json({ error: message });
   }
 });
+app.post("/api/image", async (req, res) => {
+  try {
+    const prompt = String(req.body.prompt || "").trim();
 
+    if (!prompt) {
+      return res.status(400).json({ error: "Please provide an image prompt." });
+    }
+
+    const result = await client.responses.create({
+      model: "gpt-5.6-luna",
+      input: prompt,
+      tools: [
+        {
+          type: "image_generation",
+          model: "gpt-image-2",
+          size: "1024x1024"
+        }
+      ]
+    });
+
+    const imageCall = result.output.find(
+      item => item.type === "image_generation_call"
+    );
+
+    if (!imageCall?.result) {
+      return res.status(500).json({ error: "Image generation failed." });
+    }
+
+    res.json({
+      image: `data:image/png;base64,${imageCall.result}`
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "The image generation request failed." });
+  }
+});
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
