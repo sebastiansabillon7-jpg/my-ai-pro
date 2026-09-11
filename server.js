@@ -25,6 +25,7 @@ app.post("/api/chat", async (req, res) => {
 
     const response = await client.responses.create({
       model: process.env.OPENAI_MODEL || "gpt-5.6-luna",
+      tools: [{ type: "web_search" }],
       instructions: `You are the AI inside a polished personal assistant website.
 Be helpful, accurate, clear, and friendly. Use headings and bullets when they improve readability.
 If the user asks for code, provide complete usable code and explain important setup briefly.
