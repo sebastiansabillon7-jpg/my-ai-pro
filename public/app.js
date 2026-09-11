@@ -172,6 +172,7 @@ document.querySelectorAll("#mathHelp button").forEach(b => {
     prompt.focus();
   };
 });
+const mathMode = $("#mathMode");
 const mathTopic = $("#mathTopic");
 
 mathTopic.onchange = () => {
