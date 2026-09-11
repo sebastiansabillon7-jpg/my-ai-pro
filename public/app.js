@@ -59,14 +59,7 @@ function renderMessages() {
     body.className = "msg-content";
    const html = marked.parse(m.content);
 
-const mathBlocks = [];
-
-const source = m.content.replace(
-  /\[\s*([\s\S]*?)\s*\]/g,
-  (_, math) => {
-    const index = mathBlocks.push(math.trim()) - 1;
-    return `\n\n@@MATHBLOCK${index}@@\n\n`;
-  }
+body.innerHTML = marked.parse(m.content);
 );
 
 const html = marked.parse(source);
