@@ -4,7 +4,7 @@ const path = require("path");
 
 const app = express();
 const port = process.env.PORT || 3000;
-
+// My AI Pro server
 if (!process.env.OPENAI_API_KEY) {
   console.warn("OPENAI_API_KEY is not set. Add it before using the AI.");
 }
@@ -42,9 +42,7 @@ Do not claim to have browsed the internet or performed actions you did not actua
     res.status(500).json({ error: message });
   }
 });
-});
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
-
 app.listen(port, () => console.log(`My AI Pro is running at http://localhost:${port}`));
