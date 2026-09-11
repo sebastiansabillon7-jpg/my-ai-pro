@@ -172,6 +172,15 @@ document.querySelectorAll("#mathHelp button").forEach(b => {
     prompt.focus();
   };
 });
+const mathTopic = $("#mathTopic");
+
+mathTopic.onchange = () => {
+  if (mathTopic.value) {
+    prompt.value = `${mathTopic.value} problem: `;
+    resize();
+    prompt.focus();
+  }
+};
 $("#newChat").onclick = newChat;
 $("#searchChats").oninput = e => renderChatList(e.target.value);
 $("#sendBtn").onclick = () => {};
