@@ -134,3 +134,8 @@ dialog::backdrop { background:#0007; backdrop-filter:blur(2px); }
   background: rgba(255, 255, 255, 0.15);
   color: white;
 }
+.tool-btn.active {
+  background: #111;
+  color: white;
+  border-color: #111;
+}
