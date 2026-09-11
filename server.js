@@ -42,7 +42,7 @@ Do not claim to have browsed the internet or performed actions you did not actua
   }
 });
 
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
