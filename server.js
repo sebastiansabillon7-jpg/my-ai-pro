@@ -58,6 +58,7 @@ app.post("/api/image", async (req, res) => {
           type: "image_generation",
           model: "gpt-image-2",
           size: "1024x1024"
+          quality: "medium"
         }
       ]
     });
