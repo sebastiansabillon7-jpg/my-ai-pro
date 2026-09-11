@@ -16,6 +16,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.post("/api/chat", async (req, res) => {
   try {
     const messages = Array.isArray(req.body.messages) ? req.body.messages : [];
+    const mathMode = req.body.mathMode === true;
     const clean = messages
       .filter(m => m && (m.role === "user" || m.role === "assistant"))
       .slice(-40)
@@ -26,7 +27,16 @@ app.post("/api/chat", async (req, res) => {
     const response = await client.responses.create({
       model: process.env.OPENAI_MODEL || "gpt-5.6-luna",
       tools: [{ type: "web_search" }],
-      instructions: `You are the AI inside a polished personal assistant website.
+      instructions: mathMode
+  ? `You are a step-by-step math tutor.
+Solve the user's math problem carefully and accurately.
+Show every important step and explain why each step is done.
+Do not skip calculations.
+For equations, clearly show how to isolate the variable.
+For word problems, identify the known information, set up the equation, solve it, and give the final answer.
+Use simple language suitable for a student.
+Always clearly label the final answer.`
+  : `You are the AI inside a polished personal assistant website.
 Be helpful, accurate, clear, and friendly. Use headings and bullets when they improve readability.
 If the user asks for code, provide complete usable code and explain important setup briefly.
 Do not claim to have browsed the internet or performed actions you did not actually perform.`,
