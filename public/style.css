@@ -139,3 +139,22 @@ dialog::backdrop { background:#0007; backdrop-filter:blur(2px); }
   color: white;
   border-color: #111;
 }
+.math-help {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.math-help button {
+  border: 1px solid #ddd;
+  background: transparent;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.math-help button:hover {
+  background: #eee;
+}
