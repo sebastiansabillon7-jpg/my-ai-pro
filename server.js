@@ -12,6 +12,7 @@ if (!process.env.OPENAI_API_KEY) {
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 app.use(express.json({ limit: "2mb" }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/katex", express.static(path.join(__dirname, "node_modules/katex/dist")));
 
 app.post("/api/chat", async (req, res) => {
   try {
