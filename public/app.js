@@ -57,7 +57,7 @@ function renderMessages() {
     avatar.textContent = m.role === "user" ? "Y" : "✦";
     const body = document.createElement("div");
     body.className = "msg-content";
-    body.textContent = m.content;
+    body.innerHTML = marked.parse(m.content);
     row.append(avatar, body);
 
     if (m.role === "assistant") {
