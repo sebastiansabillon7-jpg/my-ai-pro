@@ -57,7 +57,7 @@ function renderMessages() {
     avatar.textContent = m.role === "user" ? "Y" : "✦";
     const body = document.createElement("div");
     body.className = "msg-content";
-    body.innerHTML = marked.parse(m.content);
+   body.innerHTML = marked.parse(m.content.replace(/\[([\s\S]*?)\]/g, "$$$1$$"));
     if (m.content.includes("```")) {
   body.querySelectorAll("pre code").forEach(code => {
     const button = document.createElement("button");
