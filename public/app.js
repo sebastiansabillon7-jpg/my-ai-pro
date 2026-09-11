@@ -57,13 +57,21 @@ function renderMessages() {
     avatar.textContent = m.role === "user" ? "Y" : "✦";
     const body = document.createElement("div");
     body.className = "msg-content";
-   body.innerHTML = marked.parse(m.content).replace(/\[([\s\S]*?)\]/g, (match, math) => {
-  try {
-    return katex.renderToString(math.trim(), { displayMode: true });
-  } catch {
-    return match;
+   const html = marked.parse(m.content);
+
+body.innerHTML = html.replace(
+  /\[\s*([\s\S]*?)\s*\]/g,
+  (match, math) => {
+    try {
+      return katex.renderToString(math.trim(), {
+        displayMode: true,
+        throwOnError: false
+      });
+    } catch {
+      return match;
+    }
   }
-});
+);
     if (m.content.includes("```")) {
   body.querySelectorAll("pre code").forEach(code => {
     const button = document.createElement("button");
