@@ -58,6 +58,21 @@ function renderMessages() {
     const body = document.createElement("div");
     body.className = "msg-content";
     body.innerHTML = marked.parse(m.content);
+    if (m.content.includes("```")) {
+  body.querySelectorAll("pre code").forEach(code => {
+    const button = document.createElement("button");
+    button.className = "copy-code";
+    button.textContent = "Copy code";
+
+    button.onclick = async () => {
+      await navigator.clipboard.writeText(code.textContent);
+      button.textContent = "Copied!";
+      setTimeout(() => button.textContent = "Copy code", 1500);
+    };
+
+    code.parentElement.appendChild(button);
+  });
+}
     row.append(avatar, body);
 
     if (m.role === "assistant") {
