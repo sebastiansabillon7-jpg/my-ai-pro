@@ -7,5 +7,6 @@
   "dependencies": {
     "express": "^5.1.0",
     "openai": "^5.0.0"
+    "katex": "^0.16.11",
   }
 }
