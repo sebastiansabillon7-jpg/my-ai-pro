@@ -165,6 +165,13 @@ function resize() { prompt.style.height="auto"; prompt.style.height=Math.min(pro
 document.querySelectorAll(".suggestions button").forEach(b => b.onclick = () => {
   prompt.value = b.dataset.prompt; resize(); prompt.focus();
 });
+document.querySelectorAll("#mathHelp button").forEach(b => {
+  b.onclick = () => {
+    prompt.value = b.dataset.math + ": ";
+    resize();
+    prompt.focus();
+  };
+});
 $("#newChat").onclick = newChat;
 $("#searchChats").oninput = e => renderChatList(e.target.value);
 $("#sendBtn").onclick = () => {};
