@@ -158,3 +158,11 @@ dialog::backdrop { background:#0007; backdrop-filter:blur(2px); }
 .math-help button:hover {
   background: #eee;
 }
+.math-topic {
+  border: 1px solid #ddd;
+  background: transparent;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 12px;
+}
