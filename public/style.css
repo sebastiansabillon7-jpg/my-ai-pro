@@ -103,3 +103,34 @@ dialog::backdrop { background:#0007; backdrop-filter:blur(2px); }
   .composer-area { padding-left:8px; padding-right:8px; }
   .hint { display:none; }
 }
+.msg-content pre {
+  position: relative;
+  background: #111;
+  color: #f5f5f5;
+  padding: 16px;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin: 12px 0;
+}
+
+.msg-content code {
+  font-family: Consolas, Monaco, monospace;
+}
+
+.msg-content :not(pre) > code {
+  background: rgba(127, 127, 127, 0.15);
+  padding: 2px 6px;
+  border-radius: 5px;
+}
+
+.copy-code {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: 0;
+  border-radius: 6px;
+  padding: 5px 9px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
