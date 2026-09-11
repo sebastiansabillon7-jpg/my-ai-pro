@@ -68,7 +68,7 @@
           <textarea id="prompt" rows="1" placeholder="Message My AI..." autocomplete="off"></textarea>
           <div class="composer-bottom">
             <div class="composer-tools">
-              <button type="button" class="tool-btn" title="Attachments (coming soon)">＋</button>
+              <button type="button" class="tool-btn" id="imageBtn" title="Generate an image">🖼️</button>
               <span class="hint">Enter to send · Shift + Enter for a new line</span>
             </div>
             <button class="send-btn" id="sendBtn" type="submit" aria-label="Send">↑</button>
@@ -84,7 +84,50 @@
     <div class="setting-row"><div><strong>Appearance</strong><p>Switch between light and dark mode.</p></div><button id="dialogTheme" class="setting-button">Toggle theme</button></div>
     <div class="setting-row"><div><strong>Local chat history</strong><p>Your conversations are stored in this browser.</p></div><button id="deleteAll" class="danger-button">Delete all</button></div>
   </dialog>
+  <script>
+  document.getElementById("imageBtn").addEventListener("click", async () => {
+    const promptBox = document.getElementById("prompt");
+    const text = promptBox.value.trim();
 
+    if (!text) {
+      alert("Type a description of the image first.");
+      promptBox.focus();
+      return;
+    }
+
+    const imageBtn = document.getElementById("imageBtn");
+    imageBtn.disabled = true;
+    imageBtn.textContent = "⏳";
+
+    try {
+      const res = await fetch("/api/image", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: text })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || "Image generation failed.");
+
+      const img = document.createElement("img");
+      img.src = data.image;
+      img.style.maxWidth = "100%";
+      img.style.borderRadius = "16px";
+      img.style.marginTop = "20px";
+
+      document.getElementById("messages").appendChild(img);
+      img.scrollIntoView({ behavior: "smooth" });
+
+      promptBox.value = "";
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      imageBtn.disabled = false;
+      imageBtn.textContent = "🖼️";
+    }
+  });
+</script>
   <script src="/app.js"></script>
 </body>
 </html>
