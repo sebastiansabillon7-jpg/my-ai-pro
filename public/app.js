@@ -59,16 +59,28 @@ function renderMessages() {
     body.className = "msg-content";
    const html = marked.parse(m.content);
 
-body.innerHTML = html.replace(
+const mathBlocks = [];
+
+const source = m.content.replace(
   /\[\s*([\s\S]*?)\s*\]/g,
-  (match, math) => {
+  (_, math) => {
+    const index = mathBlocks.push(math.trim()) - 1;
+    return `\n\n@@MATHBLOCK${index}@@\n\n`;
+  }
+);
+
+const html = marked.parse(source);
+
+body.innerHTML = html.replace(
+  /@@MATHBLOCK(\d+)@@/g,
+  (_, i) => {
     try {
-      return katex.renderToString(math.trim(), {
+      return katex.renderToString(mathBlocks[Number(i)], {
         displayMode: true,
         throwOnError: false
       });
     } catch {
-      return match;
+      return mathBlocks[Number(i)];
     }
   }
 );
